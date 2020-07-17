@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">GithubUserApi</string>
+    <string name="submission_2_bfaa" translatable="false">Submission 2 BFAA</string>
+    <string name="username">Username</string>
+    <string name="type_some_keyword">Type some keyword</string>
+    <string name="search">Search</string>
+    <string name="main_title">Github User Search</string>
+    <string name="welcome_title">Welcome</string>
+    <string name="detail_title">Detail User</string>
+    <string name="name">Name</string>
+    <string name="company">Company</string>
+    <string name="location">Location</string>
+    <string name="tab_1">Followers</string>
+    <string name="tab_2">Following</string>
+    <string name="change_language_setting">Change Language Setting</string>
+</resources>
