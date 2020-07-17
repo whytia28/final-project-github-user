@@ -10,6 +10,11 @@
         app:showAsAction="collapseActionView|ifRoom" />
 
     <item
+        android:id="@+id/action_favorite"
+        android:title="@string/favorite"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_change_setting"
         android:title="@string/change_language_setting"
         app:showAsAction="never" />

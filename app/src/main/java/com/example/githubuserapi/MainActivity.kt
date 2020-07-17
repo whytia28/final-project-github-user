@@ -86,9 +86,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_setting) {
-            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(intent)
+        when (item.itemId) {
+            R.id.action_change_setting -> {
+                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(intent)
+            }
+
+            R.id.action_favorite -> {
+                val intentFavorite = Intent(this, FavoriteActivity::class.java)
+                startActivity(intentFavorite)
+            }
+
         }
 
         return super.onOptionsItemSelected(item)

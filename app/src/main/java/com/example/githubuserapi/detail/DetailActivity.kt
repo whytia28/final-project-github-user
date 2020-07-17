@@ -26,9 +26,15 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         supportActionBar?.title = getString(R.string.detail_title)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setViewPager()
         setDetail()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun setDetail() {
