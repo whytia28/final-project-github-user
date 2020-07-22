@@ -4,59 +4,33 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.finalprojectgithubuser.activity.MainActivity
+import com.example.finalprojectgithubuser.api.ApiService
 import com.example.finalprojectgithubuser.model.User
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
-import org.json.JSONArray
-import java.lang.Exception
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class FollowingViewModel : ViewModel() {
-    val listFollowing = MutableLiveData<ArrayList<User>>()
+    private val listFollowing = MutableLiveData<ArrayList<User>>()
 
-    fun setFollowing(user: String) {
-        val listUsers = ArrayList<User>()
-        val url = "https://api.github.com/users/$user/following"
+    fun getFollowing(): LiveData<ArrayList<User>> = listFollowing
 
-        val client = AsyncHttpClient()
-        client.addHeader("Authorization", "1a6cfe6400a0305f3cfa98868c5235b6d8e5498a")
-        client.addHeader("User-Agent", "request")
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray
-            ) {
-                try {
-                    val result = String(responseBody)
-                    val jsonObject = JSONArray(result)
-
-                    for (i in 0 until jsonObject.length()) {
-                        val users = jsonObject.getJSONObject(i)
-                        val userItems =
-                            User()
-                        userItems.login = users.getString("login")
-                        userItems.avatar = users.getString("avatar_url")
-                        listUsers.add(userItems)
-                    }
-                    listFollowing.postValue(listUsers)
-                } catch (e: Exception) {
-                    Log.d("exception", e.message.toString())
+    fun setFollowing(login: String) {
+        ApiService.invoke().getFollowing(MainActivity.TOKEN, login)
+            .enqueue(object : Callback<ArrayList<User>> {
+                override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
+                    Log.d("onFailure", t.toString())
                 }
-            }
 
-            override fun onFailure(
-                statusCode: Int,
-                headers: Array<out Header>?,
-                responseBody: ByteArray?,
-                error: Throwable?
-            ) {
-                Log.d("onFailure", error?.message.toString())
-            }
-        })
-    }
+                override fun onResponse(
+                    call: Call<ArrayList<User>>,
+                    response: Response<ArrayList<User>>
+                ) {
+                    listFollowing.postValue(response.body())
+                }
 
-    fun getFollowing(): LiveData<ArrayList<User>> {
-        return listFollowing
+            })
     }
 }

@@ -22,6 +22,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val TOKEN = "token 1a6cfe6400a0305f3cfa98868c5235b6d8e5498a"
+    }
+
     private lateinit var adapter: UserAdapter
     private lateinit var mainViewModel: MainViewModel
 
@@ -46,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                 showLoading(false)
             }
         })
-
     }
 
     private fun showRecyclerView() {
@@ -77,9 +80,9 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
-            override fun onQueryTextSubmit(query: String): Boolean {
+            override fun onQueryTextSubmit(login: String): Boolean {
                 showLoading(true)
-                mainViewModel.setUser(query)
+                mainViewModel.setQueryUser(login)
                 return true
             }
         })
