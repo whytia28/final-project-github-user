@@ -1,4 +1,4 @@
-package com.example.finalprojectgithubuser.detail
+package com.example.finalprojectgithubuser.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -72,14 +72,13 @@ class FollowingFollowersFragment : Fragment() {
 
 
         username = activity!!.intent.getParcelableExtra(EXTRA_USER) as User
-        showLoading(true)
 
         username?.login?.let { followingViewModel.setFollowing(it) }
 
         followingViewModel.getFollowing().observe(activity!!, Observer { listFollowing ->
             if (listFollowing != null) {
                 adapter.setData(listFollowing)
-                showLoading(false)
+                progress_bar.visibility = View.GONE
             }
         })
     }
@@ -91,15 +90,13 @@ class FollowingFollowersFragment : Fragment() {
         ).get(FollowersViewModel::class.java)
 
         username = activity!!.intent.getParcelableExtra(EXTRA_USER) as User
-        showLoading(true)
 
         username?.login?.let { followersViewModel.setFollowers(it) }
 
         followersViewModel.getFollowers().observe(activity!!, Observer { listFollowers ->
             if (listFollowers != null) {
                 adapter.setData(listFollowers)
-                showLoading(false)
-
+                progress_bar.visibility = View.GONE
             }
         })
     }
@@ -109,13 +106,5 @@ class FollowingFollowersFragment : Fragment() {
         rv_following.layoutManager = LinearLayoutManager(activity)
         rv_following.adapter = adapter
         rv_following.setHasFixedSize(true)
-    }
-
-    private fun showLoading(state: Boolean) {
-        if (state) {
-            progress_bar.visibility = View.VISIBLE
-        } else {
-            progress_bar.visibility = View.GONE
-        }
     }
 }

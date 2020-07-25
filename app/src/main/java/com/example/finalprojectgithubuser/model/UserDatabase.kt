@@ -12,20 +12,21 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-        private var INSTANCE : UserDatabase? = null
-    }
+        private var INSTANCE: UserDatabase? = null
 
-    fun getInstance(context: Context): UserDatabase? {
-        if (INSTANCE == null) {
-            synchronized(UserDatabase::class) {
-                INSTANCE = Room.databaseBuilder(context.applicationContext, UserDatabase::class.java, "user.db").build()
+        fun getInstance(context: Context): UserDatabase? {
+            if (INSTANCE == null) {
+                synchronized(UserDatabase::class) {
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        UserDatabase::class.java,
+                        "user.db"
+                    ).build()
+                }
             }
+            return INSTANCE
         }
-        return INSTANCE
-    }
 
-    fun destroyInstance() {
-        INSTANCE = null
     }
 
 }

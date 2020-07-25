@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.finalprojectgithubuser.R
-import com.example.finalprojectgithubuser.detail.FollowingFollowersFragment
+import com.example.finalprojectgithubuser.fragment.FollowingFollowersFragment
 
 class PagerAdapter(private val context: Context, fragmentManager: FragmentManager) :
     FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

@@ -21,7 +21,7 @@ data class User(
     @ColumnInfo(name = "avatar_url") var avatar: String? = null,
 
     @SerializedName("name")
-    @ColumnInfo(name = "name") var name: String? = null,
+    var name: String? = null,
 
     @SerializedName("company")
     var company: String? = null,
@@ -30,8 +30,8 @@ data class User(
     var location: String? = null,
 
     @SerializedName("followers")
-    var followers: Int = 0,
+    var followers: Int? = 0,
 
     @SerializedName("following")
-    var following: Int = 0
+    var following: Int? = 0
 ) : Parcelable

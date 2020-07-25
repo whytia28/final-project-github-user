@@ -4,6 +4,8 @@
     package="com.example.finalprojectgithubuser">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission android:name="com.example.finalprojectgithubuser.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.example.finalprojectgithubuser.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -15,16 +17,24 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name="com.example.finalprojectgithubuser.activity.FavoriteActivity" />
-        <activity android:name="com.example.finalprojectgithubuser.detail.DetailActivity" />
-        <activity android:name="com.example.finalprojectgithubuser.activity.SplashScreenActivity">
+        <provider
+            android:name=".provider.FavoriteContentProvider"
+            android:authorities="com.example.finalprojectgithubuser"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.example.finalprojectgithubuser.READ_DATABASE"
+            android:writePermission="com.example.finalprojectgithubuser.WRITE_DATABASE"/>
+
+        <activity android:name=".activity.FavoriteActivity" />
+        <activity android:name=".activity.DetailActivity" />
+        <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.finalprojectgithubuser.activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

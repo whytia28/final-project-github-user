@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubUserApi</string>
+    <string name="app_name">Final Project</string>
     <string name="final_project">Final Project BFAA</string>
     <string name="username">Username</string>
     <string name="type_some_keyword">Type some keyword</string>
@@ -15,4 +15,12 @@
     <string name="change_language_setting">Change Language Setting</string>
     <string name="favorite">Favorite</string>
     <string name="button_delete">Button delete</string>
+    <string name="favorite_is_empty">Favorite is empty</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_confirm">Are you sure?</string>
+    <string name="delete_title">Delete Favorite</string>
+    <string name="success_delete">Delete Favorite Successful</string>
+    <string name="add_favorite">Added to Favorite</string>
+    <string name="failed_delete">Delete Favorite Failed</string>
 </resources>

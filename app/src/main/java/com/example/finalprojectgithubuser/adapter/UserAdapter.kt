@@ -14,11 +14,11 @@ class UserAdapter :
     RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private var onItemClickCallback: OnItemClickCallback? = null
-    private var mData = ArrayList<User>()
+    private var mUser = ArrayList<User>()
 
     fun setData(items: ArrayList<User>) {
-        mData.clear()
-        mData.addAll(items)
+        mUser.clear()
+        mUser.addAll(items)
         notifyDataSetChanged()
     }
 
@@ -29,10 +29,10 @@ class UserAdapter :
     }
 
     override fun onBindViewHolder(userViewHolder: UserViewHolder, position: Int) {
-        userViewHolder.bind(mData[position])
+        userViewHolder.bind(mUser[position])
     }
 
-    override fun getItemCount(): Int = mData.size
+    override fun getItemCount(): Int = mUser.size
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(user: User) {

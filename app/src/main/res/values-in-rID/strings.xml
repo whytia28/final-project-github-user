@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GithubUserApi</string>
+    <string name="app_name">Proyek Akhir</string>
     <string name="username">Nama pengguna</string>
     <string name="type_some_keyword">Masukkan kata kunci</string>
     <string name="search">Cari</string>
@@ -13,4 +13,15 @@
     <string name="tab_1">Pengikut</string>
     <string name="tab_2">Mengikuti</string>
     <string name="change_language_setting">Pengaturan Ganti Bahasa</string>
+    <string name="final_project">Proyek Akhir BFAA</string>
+    <string name="favorite">Favorit</string>
+    <string name="button_delete">tombol hapus</string>
+    <string name="favorite_is_empty">Favorite kosong</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="delete_confirm">Kamu yakin?</string>
+    <string name="delete_title">Hapus Favorit</string>
+    <string name="success_delete">Hapus Favorit Sukses</string>
+    <string name="failed_delete">Hapus Favorit Gagal</string>
+    <string name="add_favorite">Ditambahkan ke Favorite</string>
 </resources>

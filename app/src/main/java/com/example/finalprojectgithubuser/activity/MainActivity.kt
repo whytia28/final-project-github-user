@@ -3,19 +3,18 @@ package com.example.finalprojectgithubuser.activity
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectgithubuser.R
 import com.example.finalprojectgithubuser.adapter.UserAdapter
-import com.example.finalprojectgithubuser.detail.DetailActivity
 import com.example.finalprojectgithubuser.model.User
 import com.example.finalprojectgithubuser.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,7 +38,11 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
 
         showRecyclerView()
+        setupViewModel()
 
+    }
+
+    private fun setupViewModel() {
         mainViewModel = ViewModelProvider(
             this,
             ViewModelProvider.NewInstanceFactory()
@@ -107,10 +110,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoading(state: Boolean) {
-        if (state) {
-            progress_bar.visibility = View.VISIBLE
-        } else {
-            progress_bar.visibility = View.GONE
+        when (state) {
+            true -> {
+                progress_bar.visibility = View.VISIBLE
+            }
+            false -> {
+                progress_bar.visibility = View.GONE
+            }
         }
     }
 }
