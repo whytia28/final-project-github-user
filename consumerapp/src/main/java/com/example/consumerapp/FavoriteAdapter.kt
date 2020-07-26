@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_favorite.view.*
 
-class FavoriteAdapter(private var mUser: ArrayList<User>) :
+class FavoriteAdapter :
     RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
+
+    private var mUser = ArrayList<User>()
 
     fun setData(items: ArrayList<User>) {
         mUser.clear()

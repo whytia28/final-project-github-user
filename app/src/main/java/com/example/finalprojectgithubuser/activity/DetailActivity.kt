@@ -89,7 +89,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         btn_un_favorite.setOnClickListener {
-//            user?.let { detailViewModel.deleteFavorite(this, it) }
             GlobalScope.launch {
                 user?.let { UserDatabase.getInstance(this@DetailActivity)?.userDao()?.deleteUser(it) }
             }

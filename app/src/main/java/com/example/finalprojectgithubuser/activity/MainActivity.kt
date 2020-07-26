@@ -34,9 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.title = getString(R.string.main_title)
 
-        adapter = UserAdapter()
-        adapter.notifyDataSetChanged()
-
         showRecyclerView()
         setupViewModel()
 
@@ -57,6 +54,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRecyclerView() {
         recycler_view.layoutManager = LinearLayoutManager(this)
+        adapter = UserAdapter()
+        adapter.notifyDataSetChanged()
         recycler_view.adapter = adapter
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: User) {
