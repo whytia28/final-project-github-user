@@ -4,8 +4,13 @@
     package="com.example.finalprojectgithubuser">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <permission android:name="com.example.finalprojectgithubuser.READ_DATABASE" android:protectionLevel="normal"/>
-    <permission android:name="com.example.finalprojectgithubuser.WRITE_DATABASE" android:protectionLevel="normal"/>
+
+    <permission
+        android:name="com.example.finalprojectgithubuser.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.example.finalprojectgithubuser.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -17,13 +22,23 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <receiver android:name=".widget.FavoriteUserWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/favorite_user_widget_info" />
+        </receiver>
+
         <provider
             android:name=".provider.FavoriteContentProvider"
             android:authorities="com.example.finalprojectgithubuser"
             android:enabled="true"
             android:exported="true"
             android:readPermission="com.example.finalprojectgithubuser.READ_DATABASE"
-            android:writePermission="com.example.finalprojectgithubuser.WRITE_DATABASE"/>
+            android:writePermission="com.example.finalprojectgithubuser.WRITE_DATABASE" />
 
         <activity android:name=".activity.FavoriteActivity" />
         <activity android:name=".activity.DetailActivity" />

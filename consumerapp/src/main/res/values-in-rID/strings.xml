@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Consumer App</string>
+    <string name="favorite">Favorit</string>
+    <string name="favorite_is_empty">Favorit kosong</string>
+    <string name="username">Nama pengguna</string>
+</resources>

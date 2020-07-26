@@ -35,6 +35,12 @@ class MainActivity : AppCompatActivity() {
         setRecyclerView()
     }
 
+    override fun onResume() {
+        setupUi()
+        setRecyclerView()
+        super.onResume()
+    }
+
     private fun setupUi() {
         detailViewModel = ViewModelProvider(
             this,

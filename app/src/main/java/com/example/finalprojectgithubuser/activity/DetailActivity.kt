@@ -23,7 +23,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     private var user: User? = null
     private lateinit var detailViewModel: DetailViewModel
     private var mDb: UserDatabase? = null
-    private var isAdded: Boolean? = null
+    private var isAdded: Boolean = false
 
     companion object {
         const val EXTRA_USER = "extra_user"
@@ -50,6 +50,9 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         setDetail()
         setupViewModel()
         isFavoriteAdded()
+
+        btn_favorite.setOnClickListener(this)
+        btn_un_favorite.setOnClickListener(this)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -63,6 +66,22 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         user!!.avatar.apply {
             Glide.with(this@DetailActivity).load(user!!.avatar).into(avatar)
         }
+    }
+
+    private fun isFavoriteAdded() {
+
+        val id = user?.id
+        if (id != null) {
+            detailViewModel.setFavorite(this, id)
+        }
+        detailViewModel.getFavorite().observe(this, Observer {
+            if (it != null) {
+                isAdded = true
+                btn_un_favorite.visibility = View.VISIBLE
+            } else {
+                btn_un_favorite.visibility = View.GONE
+            }
+        })
     }
 
     private fun setupViewModel() {
@@ -82,43 +101,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    private fun isFavoriteAdded() {
-        btn_favorite.setOnClickListener {
-            user?.let { detailViewModel.insertFavorite(this, it) }
-            Toast.makeText(this, this.getString(R.string.add_favorite), Toast.LENGTH_SHORT).show()
-        }
-
-        btn_un_favorite.setOnClickListener {
-            GlobalScope.launch {
-                user?.let { UserDatabase.getInstance(this@DetailActivity)?.userDao()?.deleteUser(it) }
-            }
-            Toast.makeText(
-                this,
-                this.getString(R.string.success_delete),
-                Toast.LENGTH_SHORT
-            )
-                .show()
-        }
-
-        val id = user?.id
-        if (id != null) {
-            detailViewModel.setFavorite(this, id)
-        }
-        detailViewModel.getFavorite().observe(this, Observer {
-            if (it != null) {
-                isAdded = true
-                btn_favorite.visibility = View.GONE
-                btn_un_favorite.visibility = View.VISIBLE
-
-            } else {
-                isAdded = false
-                btn_favorite.visibility = View.VISIBLE
-                btn_un_favorite.visibility = View.GONE
-            }
-        })
-    }
-
-
     private fun setViewPager() {
         val pagerAdapter = PagerAdapter(
             this,
@@ -132,22 +114,20 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_favorite -> {
-                if (isAdded == false) {
-                    user?.let { detailViewModel.insertFavorite(this, it) }
-                    Toast.makeText(this, this.getString(R.string.add_favorite), Toast.LENGTH_SHORT)
-                        .show()
-                }
+                user?.let { detailViewModel.insertFavorite(this@DetailActivity, it) }
+                Toast.makeText(this, this.getString(R.string.add_favorite), Toast.LENGTH_SHORT)
+                    .show()
             }
+
+
             R.id.btn_un_favorite -> {
-                if (isAdded == true) {
-                    user?.let { detailViewModel.deleteFavorite(this, it) }
-                    Toast.makeText(
-                        this,
-                        this.getString(R.string.success_delete),
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                GlobalScope.launch {
+                    user?.let {
+                        UserDatabase.getInstance(this@DetailActivity)?.userDao()?.deleteUser(it)
+                    }
                 }
+                Toast.makeText(this, this.getString(R.string.success_delete), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

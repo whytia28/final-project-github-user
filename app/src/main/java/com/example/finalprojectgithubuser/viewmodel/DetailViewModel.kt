@@ -1,5 +1,7 @@
 package com.example.finalprojectgithubuser.viewmodel
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.Context
 import android.net.Uri
 import android.util.Log
@@ -7,12 +9,14 @@ import androidx.core.content.contentValuesOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.finalprojectgithubuser.R
 import com.example.finalprojectgithubuser.activity.DetailActivity
 import com.example.finalprojectgithubuser.activity.MainActivity
 import com.example.finalprojectgithubuser.api.ApiService
 import com.example.finalprojectgithubuser.helper.MappingHelper
 import com.example.finalprojectgithubuser.model.User
 import com.example.finalprojectgithubuser.model.UserDatabase
+import com.example.finalprojectgithubuser.widget.FavoriteUserWidget
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -53,6 +57,8 @@ class DetailViewModel : ViewModel() {
                     "avatar_url" to user.avatar
                 )
                 context.contentResolver.insert(DetailActivity.URI_FAVORITE, values)
+                widgetUpdate(context)
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -92,9 +98,18 @@ class DetailViewModel : ViewModel() {
             try {
                 val uriWithId = Uri.parse("${DetailActivity.URI_FAVORITE}/${user.id}")
                 context.contentResolver.delete(uriWithId, null, null)
+                widgetUpdate(context)
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun widgetUpdate(context: Context) {
+        val appWidgetManager = AppWidgetManager.getInstance(context)
+        val widget = ComponentName(context, FavoriteUserWidget::class.java)
+        val appWidgetIds = appWidgetManager.getAppWidgetIds(widget)
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.sv_widget_favorite)
     }
 }

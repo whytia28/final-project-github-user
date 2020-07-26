@@ -10,7 +10,7 @@ object MappingHelper {
                 val id = getInt(getColumnIndexOrThrow("id"))
                 val login = getString(getColumnIndexOrThrow("login"))
                 val avatarUrl = getString(getColumnIndexOrThrow("avatar_url"))
-                users.add(User(id, login, avatarUrl, null, null, null, null, null ))
+                users.add(User(id, login, avatarUrl, null, null, null, null, null))
             }
         }
         return users
