@@ -20,9 +20,8 @@ import kotlinx.coroutines.launch
 
 class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
-    private var user: User? = null
+    private lateinit var user: User
     private lateinit var detailViewModel: DetailViewModel
-    private var mDb: UserDatabase? = null
     private var isAdded: Boolean = false
 
     companion object {
@@ -44,8 +43,6 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.title = getString(R.string.detail_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mDb = UserDatabase.getInstance(this)
-
         setViewPager()
         setDetail()
         setupViewModel()
@@ -55,6 +52,14 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
         btn_un_favorite.setOnClickListener(this)
     }
 
+    override fun onResume() {
+        setViewPager()
+        setDetail()
+        setupViewModel()
+        isFavoriteAdded()
+        super.onResume()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -62,18 +67,16 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setDetail() {
         user = intent.getParcelableExtra(EXTRA_USER) as User
-        tv_username.text = user!!.login
-        user!!.avatar.apply {
-            Glide.with(this@DetailActivity).load(user!!.avatar).into(avatar)
+        tv_username.text = user.login
+        user.avatar.apply {
+            Glide.with(this@DetailActivity).load(user.avatar).into(avatar)
         }
     }
 
     private fun isFavoriteAdded() {
 
-        val id = user?.id
-        if (id != null) {
-            detailViewModel.setFavorite(this, id)
-        }
+        val id = user.id
+        detailViewModel.setFavorite(this, id)
         detailViewModel.getFavorite().observe(this, Observer {
             if (it != null) {
                 isAdded = true
@@ -90,7 +93,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
             ViewModelProvider.NewInstanceFactory()
         ).get(DetailViewModel::class.java)
 
-        user?.login?.let { detailViewModel.setDetailUser(it) }
+        user.login?.let { detailViewModel.setDetailUser(it) }
         detailViewModel.getDetailUser().observe(this@DetailActivity, Observer { userItems ->
             if (userItems != null) {
                 tv_name.text = userItems.name
@@ -114,20 +117,22 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_favorite -> {
-                user?.let { detailViewModel.insertFavorite(this@DetailActivity, it) }
+                user.let { detailViewModel.insertFavorite(this@DetailActivity, it) }
                 Toast.makeText(this, this.getString(R.string.add_favorite), Toast.LENGTH_SHORT)
                     .show()
+                isFavoriteAdded()
             }
 
 
             R.id.btn_un_favorite -> {
                 GlobalScope.launch {
-                    user?.let {
+                    user.let {
                         UserDatabase.getInstance(this@DetailActivity)?.userDao()?.deleteUser(it)
                     }
                 }
                 Toast.makeText(this, this.getString(R.string.success_delete), Toast.LENGTH_SHORT)
                     .show()
+                isFavoriteAdded()
             }
         }
     }

@@ -42,7 +42,7 @@ internal class StackRemoteViewsFactory(private val context: Context) :
         userItems.forEachIndexed { index, _ ->
             val bitmap = Glide.with(context)
                 .asBitmap()
-                .load(userItems[index])
+                .load(userItems[index].avatar)
                 .submit()
                 .get()
             widgetItem.add(bitmap)
@@ -59,10 +59,7 @@ internal class StackRemoteViewsFactory(private val context: Context) :
 
         if (widgetItem.size >= 1) {
             val intent = Intent(context, DetailActivity::class.java)
-                .putExtra("login", userItems[position].login)
-                .putExtra("id", userItems[position].id)
-                .putExtra("avatar_url", userItems[position].avatar)
-
+                .putExtra("extra_user", userItems[position])
             remote.setImageViewBitmap(R.id.iv_widget_favorite, widgetItem[position])
             remote.setOnClickFillInIntent(R.id.iv_widget_favorite, intent)
         }

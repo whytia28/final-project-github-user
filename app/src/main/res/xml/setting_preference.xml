@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="notification_category"
+        android:title="Notification">
+
+        <SwitchPreference
+            android:key="reminder_switch"
+            android:title="Enable reminder" />
+
+        <Preference
+            android:key="reminder_time"
+            android:summary="09.00"
+            android:title="Set Reminder Time" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="language_category"
+        android:title="Language">
+
+        <Preference
+            android:key="language"
+            android:title="Change Language" />
+    </PreferenceCategory>
+</PreferenceScreen>

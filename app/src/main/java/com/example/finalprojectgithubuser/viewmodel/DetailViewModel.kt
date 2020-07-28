@@ -3,7 +3,6 @@ package com.example.finalprojectgithubuser.viewmodel
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import androidx.core.content.contentValuesOf
 import androidx.lifecycle.LiveData
@@ -93,18 +92,6 @@ class DetailViewModel : ViewModel() {
         }
     }
 
-    fun deleteFavorite(context: Context, user: User) {
-        GlobalScope.launch {
-            try {
-                val uriWithId = Uri.parse("${DetailActivity.URI_FAVORITE}/${user.id}")
-                context.contentResolver.delete(uriWithId, null, null)
-                widgetUpdate(context)
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
 
     private fun widgetUpdate(context: Context) {
         val appWidgetManager = AppWidgetManager.getInstance(context)

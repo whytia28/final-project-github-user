@@ -15,19 +15,19 @@ data class User(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
 
     @SerializedName("login")
-    @ColumnInfo(name = "login") var login: String? = null,
+    @ColumnInfo(name = "login") var login: String?,
 
     @SerializedName("avatar_url")
-    @ColumnInfo(name = "avatar_url") var avatar: String? = null,
+    @ColumnInfo(name = "avatar_url") var avatar: String?,
 
     @SerializedName("name")
-    var name: String? = null,
+    var name: String?,
 
     @SerializedName("company")
-    var company: String? = null,
+    var company: String?,
 
     @SerializedName("location")
-    var location: String? = null,
+    var location: String?,
 
     @SerializedName("followers")
     var followers: Int? = 0,
