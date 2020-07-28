@@ -59,7 +59,7 @@ internal class StackRemoteViewsFactory(private val context: Context) :
 
         if (widgetItem.size >= 1) {
             val intent = Intent(context, DetailActivity::class.java)
-                .putExtra("extra_user", userItems[position])
+                .putExtra("extra_user" , userItems[position])
             remote.setImageViewBitmap(R.id.iv_widget_favorite, widgetItem[position])
             remote.setOnClickFillInIntent(R.id.iv_widget_favorite, intent)
         }

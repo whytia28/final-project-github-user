@@ -1,16 +1,16 @@
 package com.example.finalprojectgithubuser.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalprojectgithubuser.R
-import com.example.finalprojectgithubuser.model.User
 import com.example.finalprojectgithubuser.adapter.FollowingFollowersAdapter
+import com.example.finalprojectgithubuser.model.User
 import com.example.finalprojectgithubuser.viewmodel.FollowersViewModel
 import com.example.finalprojectgithubuser.viewmodel.FollowingViewModel
 import kotlinx.android.synthetic.main.fragment_following_followers.*
@@ -71,11 +71,11 @@ class FollowingFollowersFragment : Fragment() {
         ).get(FollowingViewModel::class.java)
 
 
-        username = activity!!.intent.getParcelableExtra(EXTRA_USER) as User
+        username = requireActivity().intent.getParcelableExtra(EXTRA_USER)
 
         username?.login?.let { followingViewModel.setFollowing(it) }
 
-        followingViewModel.getFollowing().observe(activity!!, Observer { listFollowing ->
+        followingViewModel.getFollowing().observe(requireActivity(), Observer { listFollowing ->
             if (listFollowing != null) {
                 adapter.setData(listFollowing)
                 progress_bar.visibility = View.GONE
@@ -89,11 +89,11 @@ class FollowingFollowersFragment : Fragment() {
             ViewModelProvider.NewInstanceFactory()
         ).get(FollowersViewModel::class.java)
 
-        username = activity!!.intent.getParcelableExtra(EXTRA_USER) as User
+        username = requireActivity().intent.getParcelableExtra(EXTRA_USER)
 
         username?.login?.let { followersViewModel.setFollowers(it) }
 
-        followersViewModel.getFollowers().observe(activity!!, Observer { listFollowers ->
+        followersViewModel.getFollowers().observe(requireActivity(), Observer { listFollowers ->
             if (listFollowers != null) {
                 adapter.setData(listFollowers)
                 progress_bar.visibility = View.GONE

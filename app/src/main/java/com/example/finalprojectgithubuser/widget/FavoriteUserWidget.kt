@@ -1,11 +1,11 @@
 package com.example.finalprojectgithubuser.widget
 
 import android.app.PendingIntent
-import android.app.TaskStackBuilder
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.RemoteViews
 import androidx.core.net.toUri
 import com.example.finalprojectgithubuser.R
@@ -18,6 +18,9 @@ class FavoriteUserWidget : AppWidgetProvider() {
 
     companion object {
 
+        const val EXTRA_USER = "com.example.EXTRA_USER"
+        private const val TOAST_ACTION = "com.example.TOAST_ACTION"
+
         internal fun updateAppWidget(
             context: Context,
             appWidgetManager: AppWidgetManager,
@@ -28,13 +31,11 @@ class FavoriteUserWidget : AppWidgetProvider() {
                 data = toUri(Intent.URI_INTENT_SCHEME).toUri()
             }
 
-            val detailIntent = Intent(context, DetailActivity::class.java)
-                .putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-
-            val pendingIntent = TaskStackBuilder.create(context)
-                .addParentStack(DetailActivity::class.java)
-                .addNextIntent(detailIntent)
-                .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            val detailIntent = Intent(context, FavoriteUserWidget::class.java)
+            detailIntent.action = TOAST_ACTION
+            detailIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
+            val pendingIntent = PendingIntent.getBroadcast(context, 0, detailIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
             val views = RemoteViews(context.packageName, R.layout.favorite_user_widget).apply {
                 setRemoteAdapter(R.id.sv_widget_favorite, intent)
@@ -54,6 +55,19 @@ class FavoriteUserWidget : AppWidgetProvider() {
         // There may be multiple widgets active, so update all of them
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
+        }
+    }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action != null) {
+            if (intent.action == TOAST_ACTION) {
+                val intentDetail = Intent(context, DetailActivity::class.java)
+                intentDetail.putExtra("extra_user", intent.getStringExtra(EXTRA_USER))
+                intentDetail.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                intentDetail.data = Uri.parse(intentDetail.toUri(Intent.URI_INTENT_SCHEME))
+                context.startActivity(intentDetail)
+            }
         }
     }
 
