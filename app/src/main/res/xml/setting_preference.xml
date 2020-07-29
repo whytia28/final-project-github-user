@@ -3,25 +3,25 @@
 
     <PreferenceCategory
         android:key="notification_category"
-        android:title="Notification">
+        android:title="@string/notif_title">
 
         <SwitchPreference
             android:key="reminder_switch"
-            android:title="Enable reminder" />
+            android:title="@string/reminder_title" />
 
         <Preference
             android:key="reminder_time"
             android:summary="09.00"
-            android:title="Set Reminder Time" />
+            android:title="@string/set_reminder_title" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:key="language_category"
-        android:title="Language">
+        android:title="@string/language_title">
 
         <Preference
             android:key="language"
-            android:title="Change Language" />
+            android:title="@string/set_language_title" />
     </PreferenceCategory>
 </PreferenceScreen>

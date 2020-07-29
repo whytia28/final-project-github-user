@@ -12,7 +12,6 @@
     <string name="location">Lokasi</string>
     <string name="tab_1">Pengikut</string>
     <string name="tab_2">Mengikuti</string>
-    <string name="change_language_setting">Pengaturan Ganti Bahasa</string>
     <string name="final_project">Proyek Akhir BFAA</string>
     <string name="favorite">Favorit</string>
     <string name="button_delete">tombol hapus</string>
@@ -24,4 +23,10 @@
     <string name="success_delete">Hapus Favorit Sukses</string>
     <string name="failed_delete">Hapus Favorit Gagal</string>
     <string name="add_favorite">Ditambahkan ke Favorite</string>
+    <string name="setting_title">Pengaturan</string>
+    <string name="notif_title">Notifikasi</string>
+    <string name="reminder_title">Aktifkan Pengingat</string>
+    <string name="set_reminder_title">Atur Pengingat Waktu</string>
+    <string name="language_title">Bahasa</string>
+    <string name="set_language_title">Ganti Bahasa</string>
 </resources>

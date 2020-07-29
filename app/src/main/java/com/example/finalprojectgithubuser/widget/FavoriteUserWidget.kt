@@ -9,7 +9,7 @@ import android.net.Uri
 import android.widget.RemoteViews
 import androidx.core.net.toUri
 import com.example.finalprojectgithubuser.R
-import com.example.finalprojectgithubuser.activity.DetailActivity
+import com.example.finalprojectgithubuser.activity.FavoriteActivity
 
 /**
  * Implementation of App Widget functionality.
@@ -18,7 +18,6 @@ class FavoriteUserWidget : AppWidgetProvider() {
 
     companion object {
 
-        const val EXTRA_USER = "com.example.EXTRA_USER"
         private const val TOAST_ACTION = "com.example.TOAST_ACTION"
 
         internal fun updateAppWidget(
@@ -67,11 +66,7 @@ class FavoriteUserWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
         if (intent.action != null) {
             if (intent.action == TOAST_ACTION) {
-                val login = intent.getStringExtra("login")
-                val avatar = intent.getStringExtra("avatar_url")
-                val intentDetail = Intent(context, DetailActivity::class.java)
-                intentDetail.putExtra("login", login)
-                intentDetail.putExtra("avatar_url", avatar)
+                val intentDetail = Intent(context, FavoriteActivity::class.java)
                 intentDetail.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 intentDetail.data = Uri.parse(intentDetail.toUri(Intent.URI_INTENT_SCHEME))
                 context.startActivity(intentDetail)

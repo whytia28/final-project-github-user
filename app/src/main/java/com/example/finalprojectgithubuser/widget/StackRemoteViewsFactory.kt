@@ -10,6 +10,7 @@ import android.widget.RemoteViewsService
 import com.bumptech.glide.Glide
 import com.example.finalprojectgithubuser.R
 import com.example.finalprojectgithubuser.activity.DetailActivity
+import com.example.finalprojectgithubuser.activity.FavoriteActivity
 import com.example.finalprojectgithubuser.helper.MappingHelper
 import com.example.finalprojectgithubuser.model.User
 
@@ -58,9 +59,8 @@ internal class StackRemoteViewsFactory(private val context: Context) :
         val remote = RemoteViews(context.packageName, R.layout.item_favorite_widget)
 
         if (widgetItem.size >= 1) {
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("login", userItems[position].login)
-            intent.putExtra("avatar_url", userItems[position].avatar)
+            val intent = Intent(context, FavoriteActivity::class.java)
+            intent.putExtra("login", userItems[position])
             remote.setImageViewBitmap(R.id.iv_widget_favorite, widgetItem[position])
             remote.setOnClickFillInIntent(R.id.iv_widget_favorite, intent)
         }
