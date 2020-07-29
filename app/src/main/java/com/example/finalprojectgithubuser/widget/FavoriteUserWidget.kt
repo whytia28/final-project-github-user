@@ -35,7 +35,12 @@ class FavoriteUserWidget : AppWidgetProvider() {
             detailIntent.action = TOAST_ACTION
             detailIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
-            val pendingIntent = PendingIntent.getBroadcast(context, 0, detailIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pendingIntent = PendingIntent.getBroadcast(
+                context,
+                0,
+                detailIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
 
             val views = RemoteViews(context.packageName, R.layout.favorite_user_widget).apply {
                 setRemoteAdapter(R.id.sv_widget_favorite, intent)
@@ -62,8 +67,11 @@ class FavoriteUserWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
         if (intent.action != null) {
             if (intent.action == TOAST_ACTION) {
+                val login = intent.getStringExtra("login")
+                val avatar = intent.getStringExtra("avatar_url")
                 val intentDetail = Intent(context, DetailActivity::class.java)
-                intentDetail.putExtra("extra_user", intent.getStringExtra(EXTRA_USER))
+                intentDetail.putExtra("login", login)
+                intentDetail.putExtra("avatar_url", avatar)
                 intentDetail.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 intentDetail.data = Uri.parse(intentDetail.toUri(Intent.URI_INTENT_SCHEME))
                 context.startActivity(intentDetail)

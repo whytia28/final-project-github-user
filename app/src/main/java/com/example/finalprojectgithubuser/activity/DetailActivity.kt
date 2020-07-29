@@ -66,8 +66,13 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setDetail() {
-        if (intent.hasExtra("extra_user")) {
-            user = intent.getParcelableExtra("extra_user")
+        if (intent.hasExtra("login")) {
+            intent.getStringExtra("login")?.let {
+                user?.login = it
+            }
+            intent.getStringExtra("avatar_url")?.let {
+                user?.avatar = it
+            }
         }
         if (intent.hasExtra(EXTRA_USER)) {
             user = intent.getParcelableExtra(EXTRA_USER)
