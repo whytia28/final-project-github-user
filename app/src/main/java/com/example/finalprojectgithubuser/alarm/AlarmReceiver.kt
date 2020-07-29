@@ -11,7 +11,6 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.finalprojectgithubuser.R
 import com.example.finalprojectgithubuser.activity.MainActivity
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
@@ -21,6 +20,7 @@ class AlarmReceiver : BroadcastReceiver() {
         const val CHANNEL_ID = "channel_01"
         const val CHANNEL_NAME = "Reminder Alarm"
         const val NOTIF_TITLE = "Daily notification"
+        const val NOTIF_MESSAGE = "Hello, let's see the app"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -29,9 +29,8 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun showReminderNotification(context: Context) {
-        val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         val title = NOTIF_TITLE
-        val message = simpleDateFormat.format(SharedPref(context).getHourAndMinute())
+        val message = NOTIF_MESSAGE
         val notificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -45,7 +44,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(title)
-            .setContentText(message.toString())
+            .setContentText(message)
             .setSound(alarmSound)
             .setContentIntent(pendingIntent)
 
